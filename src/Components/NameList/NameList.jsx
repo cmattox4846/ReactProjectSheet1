@@ -1,11 +1,17 @@
 import React from 'react';
 
 
+
+
+
 const NameList = (props) => {
+      
+    
+
     return ( 
-        <ol>
-            <li>First Name:{props.firstName}</li>
-        </ol>
+        <div>
+            {props.name.map((element)=><ol>{element}</ol>)}
+        </div>
 
 
      );
