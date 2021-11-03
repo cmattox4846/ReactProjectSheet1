@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import AlertUser from './AlertUser/AlertUser';
-
 import DisplayName from './DisplayName/DisplayName';
 import NameList from './NameList/NameList';
 import SuperheroTable from './SuperheroTable/SuperheroTable';
