@@ -4,7 +4,7 @@ import React from 'react';
 const AlertUser = (props) => {
     return (  
         <div>
-           <button onClick={props.alert}>Where we at!</button>
+           <button type="button" class="btn btn-primary" onClick={props.alert}>Where we at!</button>
         </div>
 
     );
