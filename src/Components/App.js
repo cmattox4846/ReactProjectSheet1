@@ -1,9 +1,11 @@
 import React, { Component} from 'react';
 import AlertUser from './AlertUser/AlertUser';
 import DisplayName from './DisplayName/DisplayName';
+import JokeAPI from './JokesAPI/JokeAPI';
 import NameList from './NameList/NameList';
 import SuperheroCreateForm from './SuperheroCreateForm/SuperheroCreateForm';
 import SuperheroTable from './SuperheroTable/SuperheroTable';
+import axios from 'axios'
 
 
 class App extends Component {
@@ -33,9 +35,27 @@ class App extends Component {
                             primaryAbility: 'Spider senses',
                             secondaryAbility: 'Shoots web'
                         }
-                    ]
+                    ],
+        joke:[]
+
+        
             }
     
+    componentDidMount(){
+        this.getJoke()
+    }
+
+     getJoke= async ()=>{
+        let response = await axios.get('https://v2.jokeapi.dev/joke/Programming?amount=5&type=twopart');
+        this.setState({
+            joke:response.data.jokes
+        })
+
+        
+    }
+    
+
+                
     AlertUser =()=>{
         let alertMessage = alert('devCodeCamp');
 
@@ -43,26 +63,34 @@ class App extends Component {
         }
   
     createHero=(newHero)=>{
+        
         this.state.superheroes.push(newHero);
        
     }
 
     findHeroArrayNumber=()=>{
-        let superheroArrayAmount = this.state.superheroes.length -1
+        let superheroArrayAmount = this.state.superheroes.length +1
 
         return superheroArrayAmount
     }
 
     
 
-    render(){ 
+    render(){
+        console.log(this.state.joke)
+        
         return ( 
             <div className='container-fuild'>
             <DisplayName firstName={this.state.firstName} lastName={this.state.lastName} />
             <NameList name={this.state.names} />
             <AlertUser alert= {this.AlertUser}/>
             <SuperheroTable heros={this.state.superheroes}/>
-            <SuperheroCreateForm newHero={this.createHero} arrayNumber= {this.findHeroArrayNumber()}/>
+            
+            
+            <SuperheroCreateForm newHero={this.createHero}/>
+            {this.state.joke.length > 0 &&
+                <JokeAPI joke={this.state.joke} getNewJoke={this.getJoke}/>
+            }
             </div>
          )
     }
